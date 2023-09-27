@@ -2,11 +2,11 @@ import mysql from 'mysql2'
 
 export default function execSQLQuery(sqlQry, res){
     const connection = mysql.createConnection({
-        host     : 'localhost',
+        host     : process.env.DB_HOST,
         port     : 3306,
-        user     : 'id21317572_root',
-        password : 'PassareiemConcursos@1',
-        database : 'id21317572_addtech_sistema'
+        user     : process.env.DB_USERNAME,
+        password : process.env.DB_PASSWORD,
+        database : process.env.DB_DBNAME
     });
  
   connection.query(sqlQry, (error, results, fields) => {
