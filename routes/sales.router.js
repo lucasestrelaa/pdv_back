@@ -8,7 +8,7 @@ route.get('/', async (req, res) => {
 })
 route.get('/:id_sale', async function (req, res) {
     const id_sale = req.params.id_sale;
-    execSQLQuery(`SELECT * FROM sale where id_sale = ${id_sale}`, res);
+    db(`SELECT * FROM sale where id_sale = ${id_sale}`, res);
 });
 
 route.post('/', (req, res) => {
@@ -23,7 +23,7 @@ route.post('/', (req, res) => {
     //validationsale
     const dataNFormatada = new Date();
     const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    execSQLQuery(`Insert into sale (price, paid, id_client,id_user, id_store, type_payment, payment_term, interest, created_at, updated_at) values ('${price}','${paid}', '${id_client}','${id_user}','${id_store}', '${type_payment}', ${payment_term}, ${interest}, '${dataFormtatada}', '${dataFormtatada}')`, res);
+    db(`Insert into sale (price, paid, id_client,id_user, id_store, type_payment, payment_term, interest, created_at, updated_at) values ('${price}','${paid}', '${id_client}','${id_user}','${id_store}', '${type_payment}', ${payment_term}, ${interest}, '${dataFormtatada}', '${dataFormtatada}')`, res);
 })
 
 route.put('/:id_sale', (req, res) => {
@@ -38,11 +38,11 @@ route.put('/:id_sale', (req, res) => {
     //validation
     const dataNFormatada = new Date();
     const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    execSQLQuery(`update sale set price = ${price}, paid = '${paid}', id_client =  '${id_client}', id_user =  '${id_user}', id_store = '${id_store}' , type_payment = '${type_payment}' , payment_term = '${payment_term}, interest = '${interest}', updated_at = '${dataFormtatada} ' where id_sale = ${id_sale}`, res);
+    db(`update sale set price = ${price}, paid = '${paid}', id_client =  '${id_client}', id_user =  '${id_user}', id_store = '${id_store}' , type_payment = '${type_payment}' , payment_term = '${payment_term}, interest = '${interest}', updated_at = '${dataFormtatada} ' where id_sale = ${id_sale}`, res);
 })
 
 route.delete('/:id_sale', (req, res) => {
-    execSQLQuery(`delete from sale where id_sale = ${req.params.id_sale}`, res);
+    db(`delete from sale where id_sale = ${req.params.id_sale}`, res);
 })
 
 export default route

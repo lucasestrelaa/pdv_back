@@ -8,7 +8,7 @@ route.get('/', async (req, res) => {
 })
 route.get('/:id_product', async function (req, res) {
     const id_product = req.params.id_product;
-    execSQLQuery(`SELECT * FROM products where id_product = ${id_product}`, res);
+    db(`SELECT * FROM products where id_product = ${id_product}`, res);
 });
 
 route.post('/', (req, res) => {
@@ -22,7 +22,7 @@ route.post('/', (req, res) => {
     //validation
     const dataNFormatada = new Date();
     const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    execSQLQuery(`Insert into products (name, category, amount, price, id_store, color, hex, created_at, updated_at) values ('${id_product}', '${name}', '${category}','${amount}', '${price}', ${id_store}, ${color}, ${hex}, '${dataFormtatada}', '${dataFormtatada}')`, res);
+    db(`Insert into products (name, category, amount, price, id_store, color, hex, created_at, updated_at) values ('${id_product}', '${name}', '${category}','${amount}', '${price}', ${id_store}, ${color}, ${hex}, '${dataFormtatada}', '${dataFormtatada}')`, res);
 })
 route.put('/:id_product', (req, res) => {
     const id_product = req.body.id_product;
@@ -36,11 +36,11 @@ route.put('/:id_product', (req, res) => {
     //validation
     const dataNFormatada = new Date();
     const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    execSQLQuery(`update products set name = '${name}', category =  '${category}', amount = '${amount}' , price = '${price}' , id_store = '${id_store}, color = '${color}', hex = '${hex}', updated_at = '${dataFormtatada} ' where id_product = ${id_product}`, res);
+    db(`update products set name = '${name}', category =  '${category}', amount = '${amount}' , price = '${price}' , id_store = '${id_store}, color = '${color}', hex = '${hex}', updated_at = '${dataFormtatada} ' where id_product = ${id_product}`, res);
 })
 
 route.delete('/:id_product', (req, res) => {
-    execSQLQuery(`delete from products where id_product = ${req.params.id_product}`, res);
+    db(`delete from products where id_product = ${req.params.id_product}`, res);
 })
 
 export default route
