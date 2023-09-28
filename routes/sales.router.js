@@ -6,10 +6,14 @@ const route = express.Router()
 route.get('/', async (req, res) => {
     db(`Select * from sale`, res)
 })
-route.get('/:id_sale', async function (req, res) {
-    const id_sale = req.params.id_sale;
-    db(`SELECT * FROM sale where id_sale = ${id_sale}`, res);
+route.get('/:id_store', async function (req, res) {
+    const id_store = req.params.id_store;
+    db(`SELECT * FROM sale where id_store = ${id_store}`, res);
 });
+// route.get('/:id_sale', async function (req, res) {
+//     const id_sale = req.params.id_sale;
+//     db(`SELECT * FROM sale where id_sale = ${id_sale}`, res);
+// });
 
 route.post('/', (req, res) => {
     const price = req.body.price;

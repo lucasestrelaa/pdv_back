@@ -10,6 +10,10 @@ route.get('/:id_product', async function (req, res) {
     const id_product = req.params.id_product;
     db(`SELECT * FROM products where id_product = ${id_product}`, res);
 });
+route.get('/:id_store', async function (req, res) {
+    const id_store = req.params.id_store;
+    db(`SELECT * FROM products where id_store = ${id_store}`, res);
+});
 
 route.post('/', (req, res) => {
     const name = ""+req.body.name;

@@ -8,6 +8,7 @@ import express from "express";
 import "dotenv/config.js";
 import cookieParser from "cookie-parser";
 import jwt from 'jsonwebtoken'
+import cors from 'cors'
 
 
 //routes
@@ -19,22 +20,21 @@ import storeRouter from './routes/store.router.js'
 import productsalesRouter from './routes/productsales.router.js'
 import balanceRouter from './routes/balance.router.js'
 
-
-
 const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors())
 
 function authenticateToken(req, res, next) {
-    console.log(req.headers['authorization'])
+    console.log(req.headers)
     const authHeader = req.headers['authorization']
     console.log('authHeader:',authHeader)
-    const token = authHeader && authHeader.split(' ')[1]
-    console.log('token:',token)
-    if (token == null) return res.sendStatus(401)
+    // const token = authHeader && authHeader.split(' ')[1]
+    // console.log('token:',token)
+    if (authHeader == null) return res.sendStatus(401)
   
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+    jwt.verify(authHeader, process.env.TOKEN_SECRET, (err, user) => {
       console.log(err)
   
       if (err) return res.sendStatus(403)
