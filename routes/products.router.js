@@ -4,9 +4,11 @@ import db from './../db/db.js'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
+    console.log('product geral')
     db(`Select * from products`, res)
 })
 route.get('/:id_product', async function (req, res) {
+    console.log('product_id')
     const id_product = req.params.id_product;
     db(`SELECT * FROM products where id_product = ${id_product}`, res);
 });
