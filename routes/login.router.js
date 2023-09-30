@@ -17,7 +17,7 @@ route.post('/', async (req, res) => {
     const email = req.body.email
     const password =  req.body.password
     try {
-        const data = await db(`Select token from user where email = '${email}' and password = '${password}'`,res)        
+        const data = await db(`Select id_user, token from user where email = '${email}' and password = '${password}'`,res)        
         // res.json(token);
         return 
     } catch (error) {
