@@ -4,13 +4,14 @@ import jwt from './../jwt/jwt.js'
 
 const route = express.Router()
 
-route.get('/', (req, res) => {
-    // res.send('teste login')
-    // console.log(res)
-    db(`Select * from user`, res)
-})
+// route.get('/', (req, res) => {
+//     // res.send('teste login')
+//     // console.log(res)
+//     db(`Select * from user`, res)
+// })
 
 route.post('/', async (req, res) => {
+    // console.log(res.body)
     if(!req.body.email || !req.body.password){
         throw new Error('Parametros inválidos!')
     }
