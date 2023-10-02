@@ -45,6 +45,8 @@ function authenticateToken(req, res, next) {
     })
   }
 
+//implementar logs para um controle maior
+
 app.use('/login', loginRouter)
 app.use('/user',authenticateToken, userRouter)
 app.use('/product',authenticateToken, productRouter)
