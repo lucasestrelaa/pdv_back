@@ -23,8 +23,8 @@ route.post('/', (req, res) => {
     const cep = req.body.cep;
     //validationstore
     const dataNFormatada = new Date();
-    const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    db(`Insert into store (cnpj, fantasy_name, corporation_reason, phone_1, phone_2, email_1, email_2, adress, cep, created_at, updated_at) values ('${cnpj}','${fantasy_name}', '${corporation_reason}','${phone_1}', '${phone_2}', ${email_1}, ${email_2}, ${adress}, ${cep}, '${dataFormtatada}', '${dataFormtatada}')`, res);
+    const dataFormatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
+    db(`Insert into store (cnpj, fantasy_name, corporation_reason, phone_1, phone_2, email_1, email_2, adress, cep, created_at, updated_at) values ('${cnpj}','${fantasy_name}', '${corporation_reason}','${phone_1}', '${phone_2}', '${email_1}', '${email_2}', '${adress}', '${cep}', '${dataFormatada}', '${dataFormatada}')`, res);
 })
 
 route.put('/:id_store', (req, res) => {
@@ -40,8 +40,8 @@ route.put('/:id_store', (req, res) => {
     const cep = req.body.cep;
     //validation
     const dataNFormatada = new Date();
-    const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    db(`update store set cnpj = ${cnpj}, fantasy_name = '${fantasy_name}', corporation_reason =  '${corporation_reason}', phone_1 = '${phone_1}' , phone_2 = '${phone_2}' , store = '${store}, email_1 = '${email_1}', email_2 = '${email_2}', address = '${adress}', cep = '${cep}', updated_at = '${dataFormtatada} ' where id_store = ${id_store}`, res);
+    const dataFormatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
+    db(`update store set cnpj = ${cnpj}, fantasy_name = '${fantasy_name}', corporation_reason =  '${corporation_reason}', phone_1 = '${phone_1}' , phone_2 = '${phone_2}' , email_1 = '${email_1}', email_2 = '${email_2}', address = '${adress}', cep = '${cep}', updated_at = '${dataFormatada} ' where id_store = ${id_store}`, res);
 })
 
 route.delete('/:id_store', (req, res) => {

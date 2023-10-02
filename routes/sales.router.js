@@ -26,8 +26,8 @@ route.post('/', (req, res) => {
     const interest = req.body.interest;
     //validationsale
     const dataNFormatada = new Date();
-    const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    db(`Insert into sale (price, paid, id_client,id_user, id_store, type_payment, payment_term, interest, created_at, updated_at) values ('${price}','${paid}', '${id_client}','${id_user}','${id_store}', '${type_payment}', ${payment_term}, ${interest}, '${dataFormtatada}', '${dataFormtatada}')`, res);
+    const dataFormatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
+    db(`Insert into sale (price, paid, id_client,id_user, id_store, type_payment, payment_term, interest, created_at, updated_at) values (${price},${paid}, ${id_client},${id_user},${id_store}, '${type_payment}', ${payment_term}, ${interest}, '${dataFormatada}', '${dataFormatada}')`, res);
 })
 
 route.put('/:id_sale', (req, res) => {
@@ -41,8 +41,8 @@ route.put('/:id_sale', (req, res) => {
     const interest = req.body.interest;
     //validation
     const dataNFormatada = new Date();
-    const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    db(`update sale set price = ${price}, paid = '${paid}', id_client =  '${id_client}', id_user =  '${id_user}', id_store = '${id_store}' , type_payment = '${type_payment}' , payment_term = '${payment_term}, interest = '${interest}', updated_at = '${dataFormtatada} ' where id_sale = ${id_sale}`, res);
+    const dataFormatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
+    db(`update sale set price = ${price}, paid = ${paid}, id_client =  ${id_client}, id_user =  ${id_user}, id_store = ${id_store}, type_payment = '${type_payment}' , payment_term = ${payment_term}, interest = ${interest}, updated_at = '${dataFormatada} ' where id_sale = ${id_sale}`, res);
 })
 
 route.delete('/:id_sale', (req, res) => {

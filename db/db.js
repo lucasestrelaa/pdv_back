@@ -22,11 +22,12 @@ export default async function execSQLQuery(sqlQry, res){
             console.log('email', results)
             const token = jwt({ email: results[0].token });
             console.log("token",token)
-            res.json({"status": "autorizado!", "token": token, "id_user": results[0].id_user});
+            res.json({"status": "autorizado!", "token": token, "id_user": results[0].id_user, "id_store": results[0].id_store});
           }else{
             res.json(results)
           }
         }else{
+          console.log(results)
           res.json(results)
         }
       console.log('executou!');

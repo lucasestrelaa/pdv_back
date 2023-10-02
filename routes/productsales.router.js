@@ -18,7 +18,7 @@ route.post('/', (req, res) => {
     //validationproduct_sale
     const dataNFormatada = new Date();
     const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    db(`Insert into product_sale (id_sale, id_product, id_store, created_at, updated_at) values ('${id_sale}', '${id_product}', ${id_store},'${dataFormtatada}', '${dataFormtatada}')`, res);
+    db(`Insert into product_sale (id_sale, id_product, id_store, created_at, updated_at) values (${id_sale}, ${id_product}, ${id_store},'${dataFormtatada}', '${dataFormtatada}')`, res);
 })
 
 route.put('/:id_product_sale', (req, res) => {
@@ -28,7 +28,7 @@ route.put('/:id_product_sale', (req, res) => {
     //validation
     const dataNFormatada = new Date();
     const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    db(`update product_sale set id_sale = ${id_sale}, id_product = '${id_product}', id_store = ${id_store}, updated_at = '${dataFormtatada} ' where id_product_sale = ${id_product_sale}`, res);
+    db(`update product_sale set id_sale = ${id_sale}, id_product = ${id_product}, id_store = ${id_store}, updated_at = '${dataFormtatada} ' where id_product_sale = ${id_product_sale}`, res);
 })
 
 route.delete('/:id_product_sale', (req, res) => {

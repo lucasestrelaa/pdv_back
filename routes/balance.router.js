@@ -17,8 +17,8 @@ route.post('/', (req, res) => {
     const id_store = req.body.id_store;
     //validationbalance
     const dataNFormatada = new Date();
-    const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    db(`Insert into balance (description, amount, id_store, created_at, updated_at) values ('${description}','${amount}', '${id_store}', '${dataFormtatada}', '${dataFormtatada}')`, res);
+    const dataFormatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
+    db(`Insert into balance (description, amount, id_store, created_at, updated_at) values ('${description}',${amount}, ${id_store}, '${dataFormatada}', '${dataFormatada}')`, res);
 })
 
 route.put('/:id_balance', (req, res) => {
@@ -28,8 +28,8 @@ route.put('/:id_balance', (req, res) => {
     const id_store = req.body.id_store;
     //validation
     const dataNFormatada = new Date();
-    const dataFormtatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
-    db(`update balance set description = ${description}, amount = '${amount}', id_store =  '${id_store}', updated_at = '${dataFormtatada} ' where id_balance = ${id_balance}`, res);
+    const dataFormatada = dataNFormatada.toISOString().split('T')[0] +" "+ dataNFormatada.getHours()+":"+ dataNFormatada.getMinutes().toFixed(2);
+    db(`update balance set description = '${description}', amount = ${amount}, id_store =  ${id_store}, updated_at = '${dataFormatada} ' where id_balance = ${id_balance}`, res);
 })
 
 route.delete('/:id_balance', (req, res) => {
