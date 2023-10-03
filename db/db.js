@@ -17,11 +17,11 @@ export default async function execSQLQuery(sqlQry, res){
       else
         connection.end();
         console.log(results[0])
+        console.log("Success!")
         if(results[0]){ 
           if(results[0].token){
             console.log('email', results)
             const token = jwt({ email: results[0].token });
-            console.log("token",token)
             res.json({"status": "autorizado!", "token": token, "id_user": results[0].id_user, "id_store": results[0].id_store});
           }else{
             res.json(results)

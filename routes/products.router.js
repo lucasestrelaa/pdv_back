@@ -8,16 +8,18 @@ route.get('/', async (req, res) => {
     db(`Select * from products`, res)
 })
 route.get('/:id_product', async function (req, res) {
-    console.log('product_id', req.params.id_product)
+    console.log('search product_id', req.params.id_product)
     const id_product = req.params.id_product;
     db(`SELECT * FROM products where id_product = ${id_product}`, res);
 });
 route.get('/:id_store', async function (req, res) {
+    console.log('search store_id', req.params.id_product)
     const id_store = req.params.id_store;
     db(`SELECT * FROM products where id_store = ${id_store}`, res);
 });
 
 route.post('/', (req, res) => {
+    console.log('create product_id', req.body.name)
     const name = ""+req.body.name;
     const category = req.body.category;
     const amount = req.body.amount;
@@ -32,6 +34,7 @@ route.post('/', (req, res) => {
     db(`Insert into products (name, category, amount, price, id_store, color, created_at, updated_at) values ('${name}', '${category}', '${amount}', '${price}', ${id_store}, '${color}', '${dataFormtatada}', '${dataFormtatada}')`, res);
 })
 route.put('/:id_product', (req, res) => {
+    console.log('edit product_id: ', req.params.id_product, ' - Name:',req.body.name)
     const id_product = req.params.id_product;
     const name = ""+req.body.name;
     const category = req.body.category;
@@ -48,6 +51,7 @@ route.put('/:id_product', (req, res) => {
 })
 
 route.delete('/:id_product', (req, res) => {
+    console.log('delet product_id: ', req.params.id_product)
     db(`delete from products where id_product = ${req.params.id_product}`, res);
 })
 

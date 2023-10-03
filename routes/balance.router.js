@@ -4,14 +4,17 @@ import db from './../db/db.js'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
+    console.log('get all products')
     db(`Select * from balance`, res)
 })
 route.get('/:id_balance', async function (req, res) {
+    console.log('get balance_id: ', req.params.id_balance)
     const id_balance = req.params.id_balance;
     db(`SELECT * FROM balance where id_balance = ${id_balance}`, res);
 });
 
 route.post('/', (req, res) => {
+    console.log('create product_sale_id: ', req.params.id_product, ' - Name:',req.body.description)
     const description = req.body.description;
     const amount = req.body.amount;
     const id_store = req.body.id_store;
@@ -22,6 +25,7 @@ route.post('/', (req, res) => {
 })
 
 route.put('/:id_balance', (req, res) => {
+    console.log('edit product_sale_id: ', req.params.id_balance)
     const id_balance = req.params.id_balance;
     const description = req.body.description;
     const amount = req.body.amount;
@@ -33,6 +37,7 @@ route.put('/:id_balance', (req, res) => {
 })
 
 route.delete('/:id_balance', (req, res) => {
+    console.log('delete balance_id: ', req.params.id_balance)
     db(`delete from balance where id_balance = ${req.params.id_balance}`, res);
 })
 
