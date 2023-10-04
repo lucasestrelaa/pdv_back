@@ -4,6 +4,15 @@ import db from './../db/db.js'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
+    try {
+        if(req.params.id_product != null){
+            
+        }else{
+            throw new Error("Parametros inválidos!");
+        }
+    } catch (error) {
+        next(error)
+    }
     console.log('get all stores')
     db(`Select * from store`, res)
 })

@@ -9,6 +9,8 @@ import "dotenv/config.js";
 import cookieParser from "cookie-parser";
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
+import winston from "winston";
+import {promises as fs} from 'fs'
 
 
 //routes
@@ -19,6 +21,23 @@ import salesRouter from './routes/sales.router.js'
 import storeRouter from './routes/store.router.js'
 import productsalesRouter from './routes/productsales.router.js'
 import balanceRouter from './routes/balance.router.js'
+
+const { combine, timestamp, label, printf } = winston.format
+const myFormat = printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} [${label} ${level}: ${message}]`
+})
+global.logger = winston.createLogger({
+  level: "silly",
+  transports: [
+    new (winston.transports.Console)(),
+    new (winston.transports.File)({ filename: "logs-pdv.log" })
+  ],
+  format: combine(
+    label({ label: "logs-pdv"}),
+    timestamp(),
+    myFormat
+  )
+})
 
 const app = express()
 
@@ -57,5 +76,5 @@ app.use('/balance',authenticateToken, balanceRouter)
 
 
 app.listen(3001, () => {
-    console.log('servidor rodando!')
+    logger.info('servidor rodando!')
 })

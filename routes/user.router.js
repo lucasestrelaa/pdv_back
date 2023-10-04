@@ -4,6 +4,15 @@ import db from '../db/db.js'
 const route = express.Router()
 
 route.get('/', (req, res) => {
+    try {
+        if(req.params.id_product != null){
+            
+        }else{
+            throw new Error("Parametros inválidos!");
+        }
+    } catch (error) {
+        next(error)
+    }
     console.log('get all users')
     db(`Select * from user`, res)
 })
@@ -44,5 +53,6 @@ route.delete('/:id_user', (req, res) => {
     console.log('delete user_id: ', req.params.id_user)
     db(`delete from user where id_user = ${req.params.id_user}`, res);
 })
+
 
 export default route
