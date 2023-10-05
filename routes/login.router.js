@@ -6,13 +6,13 @@ const route = express.Router();
 
 // route.get('/', (req, res) => {
 //     // res.send('teste login')
-//     // console.log(res)
+//     // logger.info(res)
 //     db(`Select * from user`, res)
 // })
 
 route.post("/", async (req, res, next) => {
   try {
-    // console.log(res.body)
+    // logger.info(res.body)
     if (!req.body.email || !req.body.password) {
       throw new Error("Parametros inválidos!");
     }
@@ -30,9 +30,9 @@ route.post("/", async (req, res, next) => {
 });
 
 route.use((err, req, res, next) => {
-    logger.error(`${err.message}`)
-    res.status(400).send({ error: err.message })
-})
+  logger.error(`${err.message}`);
+  res.status(400).send({ error: err.message });
+});
 
 // route.get('/', async (req, res) => {
 //     if(!req.body.email || !req.body.password){

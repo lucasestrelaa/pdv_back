@@ -22,14 +22,14 @@ export default async function execSQLQuery(sqlQry, res){
             if(results[0].token){
               console.log('email', results)
               const token = jwt({ email: results[0].token });
-              res.json({"status": "autorizado!", "token": token, "id_user": results[0].id_user, "id_store": results[0].id_store});
+              res.status(200).json({"status": "autorizado!", "token": token, "token_expires_in": 1800, "id_user": results[0].id_user, "id_store": results[0].id_store});
             }else{
-              res.json(results)
+              res.status(200).json(results)
             }
             logger.info("Success!")
           }else{
             logger.error("Dados não encontrados")
-            res.send("dados não encontrados!")
+            res.status(203).send("dados não encontrados!")
           }
 
         } catch (error) {

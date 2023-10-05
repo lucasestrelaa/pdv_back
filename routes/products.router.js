@@ -3,7 +3,7 @@ import db from "./../db/db.js";
 
 const route = express.Router();
 
-route.get("/", async (req, res) => {
+route.get("/", async (req, res, next) => {
   try {
     logger.info("product geral");
     db(`Select * from products`, res);
@@ -11,7 +11,7 @@ route.get("/", async (req, res) => {
     next(error);
   }
 });
-route.get("/:id_product", async function (req, res) {
+route.get("/:id_product", async function (req, res, next) {
   try {
     if (req.params.id_product != null) {
       logger.info("search product_id", req.params.id_product);
@@ -24,7 +24,7 @@ route.get("/:id_product", async function (req, res) {
     next(error);
   }
 });
-route.get("/:id_store", async function (req, res) {
+route.get("/:id_store", async function (req, res, next) {
   try {
     if (req.params.id_store != null) {
       logger.info("search store_id", req.params.id_store);
@@ -38,10 +38,10 @@ route.get("/:id_store", async function (req, res) {
   }
 });
 
-route.post("/", (req, res) => {
+route.post("/", (req, res, next) => {
   try {
-    if (req.params.id_product != null) {
-      logger.info("create product_id", req.body.name);
+    if (req.body.name != null) {
+      logger.info("create Name", req.body.name);
       const name = "" + req.body.name;
       const category = req.body.category;
       const amount = req.body.amount;
@@ -69,7 +69,7 @@ route.post("/", (req, res) => {
     next(error);
   }
 });
-route.put("/:id_product", (req, res) => {
+route.put("/:id_product", (req, res, next) => {
   try {
     if (req.params.id_product != null) {
       logger.info(
@@ -110,7 +110,7 @@ route.put("/:id_product", (req, res) => {
   }
 });
 
-route.delete("/:id_product", (req, res) => {
+route.delete("/:id_product", (req, res, next) => {
   try {
     if (req.params.id_product != null) {
       logger.info("delet product_id: ", req.params.id_product);

@@ -3,19 +3,15 @@ import db from "./../db/db.js";
 
 const route = express.Router();
 
-route.get("/", async (req, res) => {
+route.get("/", async (req, res, next) => {
   try {
-    if (req.params.id_product_sale != null) {
-      logger.info("select all products of sales");
-      db(`Select * from product_sale`, res);
-    } else {
-      throw new Error("Parametros inválidos!");
-    }
+    logger.info("select all products of sales");
+    db(`Select * from product_sale`, res);
   } catch (error) {
     next(error);
   }
 });
-route.get("/:id_product_sale", async function (req, res) {
+route.get("/:id_product_sale", async function (req, res, next) {
   try {
     if (req.params.id_product_sale != null) {
       logger.info("search product_sale_id: ", req.params.id_product_sale);
@@ -31,9 +27,9 @@ route.get("/:id_product_sale", async function (req, res) {
     next(error);
   }
 });
-route.get("/:id_product", async function (req, res) {
+route.get("/:id_product", async function (req, res, next) {
   try {
-    if (req.params.id_product_sale != null) {
+    if (req.params.id_product != null) {
       logger.info("search product_id: ", req.params.id_product);
       const id_product = req.params.id_product;
       db(`SELECT * FROM product_sale where id_product = ${id_product}`, res);
@@ -44,7 +40,7 @@ route.get("/:id_product", async function (req, res) {
     next(error);
   }
 });
-route.get("/:id_sale", async function (req, res) {
+route.get("/:id_sale", async function (req, res, next) {
   try {
     if (req.params.id_product_sale != null) {
       logger.info("search sale_id: ", req.params.id_sale);
@@ -58,15 +54,10 @@ route.get("/:id_sale", async function (req, res) {
   }
 });
 
-route.post("/", (req, res) => {
+route.post("/", (req, res, next) => {
   try {
-    if (req.params.id_product_sale != null) {
-      logger.info(
-        "create product_sale_id: ",
-        req.params.id_product,
-        " - Name:",
-        req.body.name
-      );
+    if (req.body.name != null) {
+      logger.info("create Name:", req.body.name);
       const id_sale = req.body.id_sale;
       const id_product = req.body.id_product;
       const id_store = req.body.id_store;
@@ -90,7 +81,7 @@ route.post("/", (req, res) => {
   }
 });
 
-route.put("/:id_product_sale", (req, res) => {
+route.put("/:id_product_sale", (req, res, next) => {
   try {
     if (req.params.id_product_sale != null) {
       logger.info("edit product_sale_id: ", req.params.id_product_sale);
@@ -117,7 +108,7 @@ route.put("/:id_product_sale", (req, res) => {
   }
 });
 
-route.delete("/:id_product_sale", (req, res) => {
+route.delete("/:id_product_sale", (req, res, next) => {
   try {
     if (req.params.id_product_sale != null) {
       logger.info("delete product_sale_id: ", req.params.id_product_sale);
