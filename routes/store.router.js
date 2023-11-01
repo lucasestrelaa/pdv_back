@@ -11,7 +11,7 @@ route.get("/", async (req, res) => {
     next(error);
   }
 });
-route.get("/:id_store", async function (req, res) {
+route.get("/store/:id_store", async function (req, res) {
   try {
     if (req.params.id_store != null) {
       logger.info("get store_id: ", req.params.id_store);

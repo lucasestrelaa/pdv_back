@@ -11,7 +11,7 @@ route.get("/", async (req, res, next) => {
     next(error);
   }
 });
-route.get("/:id_balance", async function (req, res) {
+route.get("/balance/:id_balance", async function (req, res) {
   try {
     if (req.params.id_balance != null) {
       logger.info("get balance_id: ", req.params.id_balance);

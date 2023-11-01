@@ -11,20 +11,9 @@ route.get("/", async (req, res, next) => {
     next(error);
   }
 });
-route.get("/:id_product", async function (req, res, next) {
-  try {
-    if (req.params.id_product != null) {
-      logger.info("search product_id", req.params.id_product);
-      const id_product = req.params.id_product;
-      db(`SELECT * FROM products where id_product = ${id_product}`, res);
-    } else {
-      throw new Error("Parametros inválidos!");
-    }
-  } catch (error) {
-    next(error);
-  }
-});
-route.get("/:id_store", async function (req, res, next) {
+
+route.get("/store/:id_store", async function (req, res, next) {
+  console.log('id_store: ', req.params.id_store)
   try {
     if (req.params.id_store != null) {
       logger.info("search store_id", req.params.id_store);
@@ -37,9 +26,22 @@ route.get("/:id_store", async function (req, res, next) {
     next(error);
   }
 });
-
+route.get("/product/:id_product", async function (req, res, next) {
+  try {
+    if (req.params.id_product != null) {
+      logger.info("search product_id", req.params.id_product);
+      const id_product = req.params.id_product;
+      db(`SELECT * FROM products where id_product = ${id_product}`, res);
+    } else {
+      throw new Error("Parametros inválidos!");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 route.post("/", (req, res, next) => {
   try {
+    console.log(req.body)
     if (req.body.name != null) {
       logger.info("create Name", req.body.name);
       const name = "" + req.body.name;
@@ -57,9 +59,10 @@ route.post("/", (req, res, next) => {
         dataNFormatada.getHours() +
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
+      const image = null;
 
       db(
-        `Insert into products (name, category, amount, price, id_store, color, created_at, updated_at) values ('${name}', '${category}', '${amount}', '${price}', ${id_store}, '${color}', '${dataFormtatada}', '${dataFormtatada}')`,
+        `Insert into products (name, category, amount, price, id_store, color,hex, image, created_at, updated_at) values ('${name}', '${category}', '${amount}', '${price}', ${id_store}, '${color}','${hex}','${image}', '${dataFormtatada}', '${dataFormtatada}')`,
         res
       );
     } else {

@@ -15,6 +15,7 @@ import {promises as fs} from 'fs'
 
 //routes
 import loginRouter from './routes/login.router.js'
+import logoutRouter from './routes/logout.router.js'
 import userRouter from './routes/user.router.js'
 import productRouter from './routes/products.router.js'
 import salesRouter from './routes/sales.router.js'
@@ -71,6 +72,7 @@ function authenticateToken(req, res, next) {
 //implementar logs para um controle maior
 
 app.use('/login', loginRouter)
+app.use('/logout', authenticateToken, logoutRouter)
 app.use('/user',authenticateToken, userRouter)
 app.use('/product',authenticateToken, productRouter)
 app.use('/sales',authenticateToken, salesRouter)

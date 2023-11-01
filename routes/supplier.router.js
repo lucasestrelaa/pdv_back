@@ -24,6 +24,19 @@ route.get("/:id_supplier", async function (req, res) {
     next(error);
   }
 });
+route.get("/store/:id_store", async function (req, res) {
+  try {
+    if (req.params.id_store != null) {
+      logger.info("get store_id: ", req.params.id_store);
+      const id_store = req.params.id_store;
+      db(`SELECT * FROM supplier where id_store = ${id_store}`, res);
+    } else {
+      throw new Error("Parametros inválidos!");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
 route.post("/", (req, res) => {
   try {

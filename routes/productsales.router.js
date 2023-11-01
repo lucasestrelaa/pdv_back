@@ -11,7 +11,7 @@ route.get("/", async (req, res, next) => {
     next(error);
   }
 });
-route.get("/:id_product_sale", async function (req, res, next) {
+route.get("/productsale/:id_product_sale", async function (req, res, next) {
   try {
     if (req.params.id_product_sale != null) {
       logger.info("search product_sale_id: ", req.params.id_product_sale);
@@ -27,7 +27,7 @@ route.get("/:id_product_sale", async function (req, res, next) {
     next(error);
   }
 });
-route.get("/:id_product", async function (req, res, next) {
+route.get("/product/:id_product", async function (req, res, next) {
   try {
     if (req.params.id_product != null) {
       logger.info("search product_id: ", req.params.id_product);
@@ -40,7 +40,7 @@ route.get("/:id_product", async function (req, res, next) {
     next(error);
   }
 });
-route.get("/:id_sale", async function (req, res, next) {
+route.get("/sale/:id_sale", async function (req, res, next) {
   try {
     if (req.params.id_product_sale != null) {
       logger.info("search sale_id: ", req.params.id_sale);

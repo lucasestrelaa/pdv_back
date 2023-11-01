@@ -11,12 +11,25 @@ route.get("/", async (req, res, next) => {
     next(error);
   }
 });
-route.get("/:id_client", async function (req, res) {
+route.get("/client/:id_client", async function (req, res) {
   try {
     if (req.params.id_client != null) {
       logger.info("get client_id: ", req.params.id_client);
       const id_client = req.params.id_client;
       db(`SELECT * FROM client where id_client = ${id_client}`, res);
+    } else {
+      throw new Error("Parametros inválidos!");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+route.get("/store/:id_store", async function (req, res) {
+  try {
+    if (req.params.id_store != null) {
+      logger.info("get store_id: ", req.params.id_store);
+      const id_store = req.params.id_store;
+      db(`SELECT * FROM client where id_store = ${id_store}`, res);
     } else {
       throw new Error("Parametros inválidos!");
     }

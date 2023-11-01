@@ -11,7 +11,7 @@ route.get("/", async (req, res) => {
     next(error);
   }
 });
-route.get("/:id_store", async function (req, res) {
+route.get("/store/:id_store", async function (req, res) {
   try {
     if (req.params.id_store != null) {
       logger.info("get store_id", req.params.id_store);
@@ -24,7 +24,7 @@ route.get("/:id_store", async function (req, res) {
     next(error);
   }
 });
-route.get("/:id_client", async function (req, res) {
+route.get("/client/:id_client", async function (req, res) {
   try {
     if (req.params.id_client != null) {
       logger.info("get client_id", req.params.id_client);
@@ -37,7 +37,7 @@ route.get("/:id_client", async function (req, res) {
     next(error);
   }
 });
-route.get("/:id_sale", async function (req, res, next) {
+route.get("/sale/:id_sale", async function (req, res, next) {
   try {
     if (req.params.id_sale != null) {
       logger.info("get sale_id", req.params.id_sale);
@@ -50,7 +50,7 @@ route.get("/:id_sale", async function (req, res, next) {
     next(error);
   }
 });
-route.get("/:id_user", async function (req, res, next) {
+route.get("/user/:id_user", async function (req, res, next) {
   try {
     if (req.params.id_user != null) {
       logger.info("get user_id", req.params.id_user);
