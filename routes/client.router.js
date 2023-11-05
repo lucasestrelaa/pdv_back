@@ -11,8 +11,9 @@ route.get("/", async (req, res, next) => {
     next(error);
   }
 });
-route.get("/client/:id_client", async function (req, res) {
+route.get("/client/:id_client", async function (req, res, next) {
   try {
+    console.log('id_client: ', req.params.id_client)
     if (req.params.id_client != null) {
       logger.info("get client_id: ", req.params.id_client);
       const id_client = req.params.id_client;
@@ -24,7 +25,7 @@ route.get("/client/:id_client", async function (req, res) {
     next(error);
   }
 });
-route.get("/store/:id_store", async function (req, res) {
+route.get("/store/:id_store", async function (req, res, next) {
   try {
     if (req.params.id_store != null) {
       logger.info("get store_id: ", req.params.id_store);
@@ -38,7 +39,7 @@ route.get("/store/:id_store", async function (req, res) {
   }
 });
 
-route.post("/", (req, res) => {
+route.post("/", (req, res, next) => {
   try {
     if (req.body.name) {
       logger.info("create name client: ", req.body.name);
@@ -71,10 +72,11 @@ route.post("/", (req, res) => {
   }
 });
 
-route.put("/:id_client", (req, res) => {
+route.put("/:id_client", (req, res, next) => {
   try {
     if (req.params.id_client != null) {
       logger.info("edit product_sale_id: ", req.params.id_client);
+      const id_client = req.params.id_client;
       const document = req.body.document;
       const name = req.body.name;
       const description = req.body.description;
@@ -83,6 +85,7 @@ route.put("/:id_client", (req, res) => {
       const email_1 = req.body.email_1;
       const email_2 = req.body.email_2;
       const address = req.body.address;
+      const id_store = req.body.id_store;
       //validation
       const dataNFormatada = new Date();
       const dataFormatada =
@@ -94,7 +97,7 @@ route.put("/:id_client", (req, res) => {
 
        
       db(
-        `update client set document = '${document}' ,name ='${name}', description = '${description}',phone_1 = '${phone_1}',phone_2= '${phone_2}',email_1= '${email_1}',email_2= '${email_2}', address= '${address}', updated_at = '${dataFormatada} ' where id_client = ${id_client}`,
+        `update client set document = '${document}' ,name ='${name}', description = '${description}',phone_1 = '${phone_1}',phone_2= '${phone_2}',email_1= '${email_1}',email_2= '${email_2}', address= '${address}', id_store='${id_store}', updated_at = '${dataFormatada} ' where id_client = ${id_client}`,
         res
       );
     } else {

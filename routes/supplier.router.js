@@ -50,7 +50,7 @@ route.post("/", (req, res) => {
       const email_1 = req.body.email_1;
       const email_2 = req.body.email_2;
       const address = req.body.address;
-
+      const id_store = req.body.id_store;
       //validationsupplier
       const dataNFormatada = new Date();
       const dataFormatada =
@@ -60,7 +60,7 @@ route.post("/", (req, res) => {
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
       db(
-        `Insert into supplier (cnpj ,name, description, phone_1, phone_2, email_1, email_2, address, created_at, updated_at) values ('${cnpj}' ,'${name}', '${description}', '${phone_1}', '${phone_2}', '${email_1}', '${email_2}', '${address}', '${dataFormatada}', '${dataFormatada}')`,
+        `Insert into supplier (cnpj ,name, description, phone_1, phone_2, email_1, email_2, address, id_store, created_at, updated_at) values ('${cnpj}' ,'${name}', '${description}', '${phone_1}', '${phone_2}', '${email_1}', '${email_2}', '${address}', '${id_store}', '${dataFormatada}', '${dataFormatada}')`,
         res
       );
     } else {
@@ -71,10 +71,11 @@ route.post("/", (req, res) => {
   }
 });
 
-route.put("/:id_supplier", (req, res) => {
+route.put("/:id_supplier", (req, res, next) => {
   try {
     if (req.params.id_supplier != null) {
       logger.info("edit product_sale_id: ", req.params.id_supplier);
+      const id_supplier = req.params.id_supplier;
       const cnpj = req.body.cnpj;
       const name = req.body.name;
       const description = req.body.description;
@@ -83,6 +84,7 @@ route.put("/:id_supplier", (req, res) => {
       const email_1 = req.body.email_1;
       const email_2 = req.body.email_2;
       const address = req.body.address;
+      const id_store = req.body.id_store;
       //validation
       const dataNFormatada = new Date();
       const dataFormatada =
@@ -94,7 +96,7 @@ route.put("/:id_supplier", (req, res) => {
 
        
       db(
-        `update supplier set cnpj = '${cnpj}' ,name ='${name}', description = '${description}',phone_1 = '${phone_1}',phone_2= '${phone_2}',email_1= '${email_1}',email_2= '${email_2}', address= '${address}', updated_at = '${dataFormatada} ' where id_supplier = ${id_supplier}`,
+        `update supplier set cnpj = '${cnpj}' ,name ='${name}', description = '${description}',phone_1 = '${phone_1}',phone_2= '${phone_2}',email_1= '${email_1}',email_2= '${email_2}', address= '${address}',id_store= '${id_store}', updated_at = '${dataFormatada}' where id_supplier = ${id_supplier}`,
         res
       );
     } else {

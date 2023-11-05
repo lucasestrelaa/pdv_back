@@ -61,6 +61,7 @@ route.post("/", (req, res, next) => {
       const id_sale = req.body.id_sale;
       const id_product = req.body.id_product;
       const id_store = req.body.id_store;
+      const keytransaction = req.body.keytransaction
       //validationproduct_sale
       const dataNFormatada = new Date();
       const dataFormtatada =
@@ -70,7 +71,7 @@ route.post("/", (req, res, next) => {
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
       db(
-        `Insert into product_sale (id_sale, id_product, id_store, created_at, updated_at) values (${id_sale}, ${id_product}, ${id_store},'${dataFormtatada}', '${dataFormtatada}')`,
+        `Insert into product_sale ( id_product, id_store,keytransaction, created_at, updated_at) values ( ${id_product}, ${id_store},${keytransaction},'${dataFormtatada}', '${dataFormtatada}')`,
         res
       );
     } else {

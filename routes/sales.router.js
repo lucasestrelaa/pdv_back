@@ -76,6 +76,7 @@ route.post("/", (req, res, next) => {
       const type_payment = req.body.type_payment;
       const payment_term = req.body.payment_term;
       const interest = req.body.interest;
+      const keytransaction = req.body.keytransaction
       //validationsale
       const dataNFormatada = new Date();
       const dataFormatada =
@@ -85,7 +86,7 @@ route.post("/", (req, res, next) => {
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
       db(
-        `Insert into sale (price, paid, id_client,id_user, id_store, type_payment, payment_term, interest, created_at, updated_at) values (${price},${paid}, ${id_client},${id_user},${id_store}, '${type_payment}', ${payment_term}, ${interest}, '${dataFormatada}', '${dataFormatada}')`,
+        `Insert into sale (price, paid, id_client,id_user, id_store, type_payment, payment_term, interest,keytransaction, created_at, updated_at) values (${price},${paid}, ${id_client},${id_user},${id_store}, '${type_payment}', ${payment_term}, ${interest},'${keytransaction}', '${dataFormatada}', '${dataFormatada}')`,
         res
       );
     } else {
