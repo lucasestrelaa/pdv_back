@@ -58,7 +58,7 @@ route.post("/", (req, res, next) => {
   try {
     if (req.body.name != null) {
       logger.info("create Name:", req.body.name);
-      const id_sale = req.body.id_sale;
+      //const id_sale = req.body.id_sale;
       const id_product = req.body.id_product;
       const id_store = req.body.id_store;
       const keytransaction = req.body.keytransaction
