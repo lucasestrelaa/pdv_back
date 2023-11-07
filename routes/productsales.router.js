@@ -56,8 +56,10 @@ route.get("/sale/:id_sale", async function (req, res, next) {
 
 route.post("/", (req, res, next) => {
   try {
-    if (req.body.name != null) {
-      logger.info("create Name:", req.body.name);
+    //console.log("ReqBody: ",req.body)
+    if (req.body.id_product != null) {
+      logger.info("create ProductSale:", req.body.id_product);
+      
       //const id_sale = req.body.id_sale;
       const id_product = req.body.id_product;
       const id_store = req.body.id_store;
@@ -70,12 +72,13 @@ route.post("/", (req, res, next) => {
         dataNFormatada.getHours() +
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
+        
       db(
-        `Insert into product_sale ( id_product, id_store,keytransaction, created_at, updated_at) values ( ${id_product}, ${id_store},${keytransaction},'${dataFormtatada}', '${dataFormtatada}')`,
+        `Insert into product_sale (keytransaction, id_product, id_store, created_at, updated_at) values ( '${keytransaction}',${id_product}, ${id_store},'${dataFormtatada}', '${dataFormtatada}')`,
         res
       );
     } else {
-      throw new Error("Parametros inválidos!");
+      throw new Error("Parametros inválidos - postproductsales!");
     }
   } catch (error) {
     next(error);

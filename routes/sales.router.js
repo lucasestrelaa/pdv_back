@@ -66,6 +66,7 @@ route.get("/user/:id_user", async function (req, res, next) {
 
 route.post("/", (req, res, next) => {
   try {
+    console.log("ReqBodySale: ", req.body)
     if (req.body.id_store != null) {
       logger.info("create sale", req.body.id_store);
       const price = req.body.price;
@@ -90,7 +91,7 @@ route.post("/", (req, res, next) => {
         res
       );
     } else {
-      throw new Error("Parametros inválidos!");
+      throw new Error("Parametros inválidos - sales!");
     }
   } catch (error) {
     next(error);
