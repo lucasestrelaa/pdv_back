@@ -66,17 +66,17 @@ route.get("/user/:id_user", async function (req, res, next) {
 
 route.post("/", (req, res, next) => {
   try {
-    console.log("ReqBodySale: ", req.body)
+    // console.log("ReqBodySale: ", req.body)
     if (req.body.id_store != null) {
       logger.info("create sale", req.body.id_store);
-      const price = req.body.price;
-      const paid = req.body.paid;
-      const id_client = req.body.id_client;
-      const id_user = req.body.id_user;
-      const id_store = req.body.id_store;
-      const type_payment = req.body.type_payment;
-      const payment_term = req.body.payment_term;
-      const interest = req.body.interest;
+      const price = parseFloat(req.body.price);
+      const paid = req.body.paid === true ? 1 : 0;
+      const id_client = req.body.id_client !== undefined ? parseInt(req.body.id_client): null;
+      const id_user = parseInt(req.body.id_user);
+      const id_store = parseInt(req.body.id_store);
+      const type_payment = req.body.typePayment;
+      const payment_term = parseFloat(req.body.paymentTerm);
+      const interest = parseFloat(req.body.interest);
       const keytransaction = req.body.keytransaction
       //validationsale
       const dataNFormatada = new Date();
@@ -86,6 +86,7 @@ route.post("/", (req, res, next) => {
         dataNFormatada.getHours() +
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
+        console.log(`Insert into sale (price, paid, id_client,id_user, id_store, type_payment, payment_term, interest,keytransaction, created_at, updated_at) values (${price},${paid}, ${id_client},${id_user},${id_store}, '${type_payment}', ${payment_term}, ${interest},'${keytransaction}', '${dataFormatada}', '${dataFormatada}')`)
       db(
         `Insert into sale (price, paid, id_client,id_user, id_store, type_payment, payment_term, interest,keytransaction, created_at, updated_at) values (${price},${paid}, ${id_client},${id_user},${id_store}, '${type_payment}', ${payment_term}, ${interest},'${keytransaction}', '${dataFormatada}', '${dataFormatada}')`,
         res

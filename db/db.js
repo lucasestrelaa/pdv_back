@@ -16,7 +16,7 @@ export default async function execSQLQuery(sqlQry, res){
       //   return error;
       // else
         connection.end();
-        // console.log(results[0])
+        console.log("resultado: ",results)
         try {
           if(results[0] != undefined){ 
             if(results[0].token){
@@ -28,8 +28,13 @@ export default async function execSQLQuery(sqlQry, res){
             }
             logger.info("Success!")
           }else{
-            logger.error("Dados não encontrados")
-            res.status(203).send("dados não encontrados!")
+            if(results.affectedRows > 0){
+              logger.info(`Dado de id:${results.insertId} cadastrado`)
+              res.status(200).send(`Dado de id:${results.insertId} cadastrado`)
+            }else{
+              logger.error(`Dados não foram inseridos`)
+              res.status(200).send(`Dados não foram inseridos`)
+            }
           }
 
         } catch (error) {
