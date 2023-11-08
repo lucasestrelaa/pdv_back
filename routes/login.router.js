@@ -4,11 +4,11 @@ import jwt from "./../jwt/jwt.js";
 
 const route = express.Router();
 
-// route.get('/', (req, res) => {
-//     // res.send('teste login')
+route.get('/', (req, res) => {
+     res.send('teste login')
 //     // logger.info(res)
 //     db(`Select * from user`, res)
-// })
+})
 
 route.post("/", async (req, res, next) => {
   try {
