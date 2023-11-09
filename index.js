@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser";
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
 import winston from "winston";
-import {promises as fs} from 'fs'
+import { promises as fs } from 'fs'
 
 
 //routes
@@ -38,7 +38,7 @@ global.logger = winston.createLogger({
     new (winston.transports.File)({ filename: "logs-pdv.log" })
   ],
   format: combine(
-    label({ label: "logs-pdv"}),
+    label({ label: "logs-pdv" }),
     timestamp(),
     myFormat
   )
@@ -48,44 +48,49 @@ const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({origin: "*"}))
+app.use(cors({
+  origin: '*',
+  methods: '*',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}))
 
 function authenticateToken(req, res, next) {
-    console.log(req.headers)
-    const authHeader = req.headers['authorization']
-    console.log('authHeader:',authHeader)
-    // const token = authHeader && authHeader.split(' ')[1]
-    // console.log('token:',token)
-    if (authHeader == null) return res.sendStatus(401)
-  
-    jwt.verify(authHeader, process.env.TOKEN_SECRET, (err, user) => {
-      console.log(err)
-  
-      if (err) return res.sendStatus(403)
-  
-      req.user = user
-  
-      next()
-    })
-  }
+  console.log(req.headers)
+  const authHeader = req.headers['authorization']
+  console.log('authHeader:', authHeader)
+  // const token = authHeader && authHeader.split(' ')[1]
+  // console.log('token:',token)
+  if (authHeader == null) return res.sendStatus(401)
+
+  jwt.verify(authHeader, process.env.TOKEN_SECRET, (err, user) => {
+    console.log(err)
+
+    if (err) return res.sendStatus(403)
+
+    req.user = user
+
+    next()
+  })
+}
 
 //implementar logs para um controle maior
 
 app.use('/login', loginRouter)
 app.use('/logout', authenticateToken, logoutRouter)
-app.use('/user',authenticateToken, userRouter)
-app.use('/product',authenticateToken, productRouter)
-app.use('/sales',authenticateToken, salesRouter)
-app.use('/store',authenticateToken, storeRouter)
-app.use('/productsales',authenticateToken, productsalesRouter)
-app.use('/balance',authenticateToken, balanceRouter)
-app.use('/supplier',authenticateToken, supplierRouter)
-app.use('/client',authenticateToken, clientRouter)
-app.use('/profile',authenticateToken, profileRouter)
-app.use('/payment',authenticateToken, paymentRouter)
+app.use('/user', authenticateToken, userRouter)
+app.use('/product', authenticateToken, productRouter)
+app.use('/sales', authenticateToken, salesRouter)
+app.use('/store', authenticateToken, storeRouter)
+app.use('/productsales', authenticateToken, productsalesRouter)
+app.use('/balance', authenticateToken, balanceRouter)
+app.use('/supplier', authenticateToken, supplierRouter)
+app.use('/client', authenticateToken, clientRouter)
+app.use('/profile', authenticateToken, profileRouter)
+app.use('/payment', authenticateToken, paymentRouter)
 
 
 
 app.listen(3001, () => {
-    logger.info('servidor rodando!')
+  logger.info('servidor rodando!')
 })
