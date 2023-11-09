@@ -3,7 +3,7 @@ import db from "../db/db.js";
 
 const route = express.Router();
 
-route.get("/", (req, res) => {
+route.get("/", (req, res, next) => {
   try {
     logger.info("get all users");
     db(`Select * from user`, res);
@@ -11,7 +11,7 @@ route.get("/", (req, res) => {
     next(error);
   }
 });
-route.get("/:id_user", async function (req, res) {
+route.get("/:id_user", async function (req, res, next) {
   try {
     if (req.params.id_user != null) {
       logger.info("get user_id: ", req.params.id_user);
@@ -25,7 +25,7 @@ route.get("/:id_user", async function (req, res) {
   }
 });
 
-route.post("/", (req, res) => {
+route.post("/", (req, res, next) => {
   try {
     if (req.body.email != null) {
       logger.info(
@@ -59,7 +59,7 @@ route.post("/", (req, res) => {
     next(error);
   }
 });
-route.put("/:id_user", (req, res) => {
+route.put("/:id_user", (req, res, next) => {
   try {
     if (req.params.id_user != null) {
       logger.info("edit user_id: ", req.params.id_user);
@@ -89,7 +89,7 @@ route.put("/:id_user", (req, res) => {
   }
 });
 
-route.delete("/:id_user", (req, res) => {
+route.delete("/:id_user", (req, res, next) => {
   try {
     if (req.params.id_user != null) {
       logger.info("delete user_id: ", req.params.id_user);

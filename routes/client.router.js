@@ -51,6 +51,7 @@ route.post("/", (req, res, next) => {
       const email_1 = req.body.email_1;
       const email_2 = req.body.email_2;
       const address = req.body.address;
+      const id_store = req.body.id_store;
 
       //validationclient
       const dataNFormatada = new Date();
@@ -61,7 +62,7 @@ route.post("/", (req, res, next) => {
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
       db(
-        `Insert into client (document ,name, description, phone_1, phone_2, email_1, email_2, address, created_at, updated_at) values ('${document}' ,'${name}', '${description}', '${phone_1}', '${phone_2}', '${email_1}', '${email_2}', '${address}', '${dataFormatada}', '${dataFormatada}')`,
+        `Insert into client (document ,name, description, phone_1, phone_2, email_1, email_2, address,id_store, created_at, updated_at) values ('${document}' ,'${name}', '${description}', '${phone_1}', '${phone_2}', '${email_1}', '${email_2}', '${address}',${id_store}, '${dataFormatada}', '${dataFormatada}')`,
         res
       );
     } else {
