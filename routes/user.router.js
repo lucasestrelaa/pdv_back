@@ -6,7 +6,7 @@ const route = express.Router();
 route.get("/", (req, res, next) => {
   try {
     logger.info("get all users");
-    db(`Select * from user`, res);
+    db(`Select email, id_store from user`, res);
   } catch (error) {
     next(error);
   }
