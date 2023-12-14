@@ -47,6 +47,7 @@ route.get("/reference/:reference", async function (req, res, next) {
 
 route.post("/", (req, res, next) => {
     try {
+        console.log("invoice data: ",req.body)
         if (req.body.reference != null) {
             logger.info(
                 "create invoice: ",
@@ -56,6 +57,8 @@ route.post("/", (req, res, next) => {
             );
             const description = req.body.description;
             const reference = "" + req.body.reference;
+            const referenceFormatted = reference.replace("-", "/")
+            console.log(`Referencia formatada: ${referenceFormatted}`)
             const price = req.body.price;
             const paid = req.body.paid;
             const id_store = req.body.id_store;
@@ -68,6 +71,7 @@ route.post("/", (req, res, next) => {
                 dataNFormatada.getHours() +
                 ":" +
                 dataNFormatada.getMinutes().toFixed(2);
+
             db(
                 `Insert into invoice (description, reference, price,id_store, paid, payday, created_at, updated_at) 
                 values ('${description}', '${reference}','${price}', ${id_store}, '${paid}', ${payday}, '${dataFormatada}', '${dataFormatada}')`,
