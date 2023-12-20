@@ -21,7 +21,7 @@ route.post("/", async (req, res, next) => {
 
     logger.info("login: ", email);
     db(
-      `Select id_user, id_store, token, email from user where email = '${email}' and password = '${password}'`,
+      `Select id_user, id_store, token, email, id_user_type, name from user where email = '${email}' and password = '${password}'`,
       res
     );
   } catch (error) {

@@ -11,12 +11,46 @@ route.get("/", async (req, res) => {
     next(error);
   }
 });
-route.get("/store/:id_store", async function (req, res) {
+route.get("/store/:id_store", async function (req, res, next) {
   try {
     if (req.params.id_store != null) {
       logger.info("get store_id", req.params.id_store);
       const id_store = req.params.id_store;
       db(`SELECT * FROM sale where id_store = ${id_store}`, res);
+    } else {
+      throw new Error("Parametros inválidos!");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+route.get("/month/:id_store", async function (req, res, next) {
+  try {
+    if (req.params.id_store != null) {
+      logger.info("get month");
+      const id_store = req.params.id_store;
+      const dataNFormatada = new Date();
+      const dataFormatada = dataNFormatada.getFullYear() + "-" +dataNFormatada.getMonth();
+      console.log("teste de data: ", dataFormatada)
+      db(`SELECT * FROM sale where created_at like "${dataFormatada}%" and id_store = ${id_store}`, res);
+    } else {
+      throw new Error("Parametros inválidos!");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+route.get("/year/:id_store", async function (req, res, next) {
+  try {
+    if (req.params.id_store != null) {
+      logger.info("get month");
+      const id_store = req.params.id_store;
+      const dataNFormatada = new Date();
+      const dataFormatada = dataNFormatada.getFullYear();
+      console.log("teste de data: ", dataFormatada)
+      db(`SELECT * FROM sale where created_at like "${dataFormatada}%" and id_store = ${id_store}`, res);
     } else {
       throw new Error("Parametros inválidos!");
     }

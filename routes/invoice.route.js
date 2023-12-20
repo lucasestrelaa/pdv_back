@@ -27,10 +27,12 @@ route.get("/:id_store", async function (req, res, next) {
 });
 route.get("/reference/:reference", async function (req, res, next) {
     try {
+        console.log("referencia: ", req.params.reference.replace("-", "/"))
         if (req.params.reference != null) {
-            logger.info("get invoice from reference: ", req.params.reference);
-            const reference = req.params.reference;
-            db(`SELECT * FROM invoice where reference = ${reference}`, res);
+            logger.info("get invoice from reference: ", req.params.reference.replace("-", "/"));
+            const reference = req.params.reference.replace("-", "/");
+            console.log("sql de referencia: ", `SELECT * FROM invoice where reference = ${reference}`)
+            db(`SELECT * FROM invoice where reference = "${reference}"`, res);
         } else {
             throw new Error("Parametros inválidos!");
         }
