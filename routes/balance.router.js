@@ -11,6 +11,20 @@ route.get("/", async (req, res, next) => {
     next(error);
   }
 });
+route.get("/:id_bill", async function (req, res, next) {
+  try {
+    console.log("idStore: ",req.params.id_bill)
+    if (req.params.id_bill != null) {
+      logger.info("get store_id: ", req.params.id_bill);
+      const id_bill = req.params.id_bill;
+      db(`SELECT * FROM balance where id_balance = ${id_bill}`, res);
+    } else {
+      throw new Error("Parametros inválidos!");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 route.get("/balance/:id_store", async function (req, res, next) {
   try {
     console.log("idStore: ",req.params.id_store)
