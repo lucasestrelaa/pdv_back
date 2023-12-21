@@ -13,9 +13,9 @@ route.get("/", async (req, res, next) => {
 });
 route.get("/:id_bill", async function (req, res, next) {
   try {
-    console.log("idStore: ",req.params.id_bill)
+    console.log("idBalance: ",req.params.id_bill)
     if (req.params.id_bill != null) {
-      logger.info("get store_id: ", req.params.id_bill);
+      logger.info("get balance_id: ", req.params.id_bill);
       const id_bill = req.params.id_bill;
       db(`SELECT * FROM balance where id_balance = ${id_bill}`, res);
     } else {
@@ -27,7 +27,7 @@ route.get("/:id_bill", async function (req, res, next) {
 });
 route.get("/balance/:id_store", async function (req, res, next) {
   try {
-    console.log("idStore: ",req.params.id_store)
+    console.log("idStores: ",req.params.id_store)
     if (req.params.id_store != null) {
       logger.info("get store_id: ", req.params.id_store);
       const id_store = req.params.id_store;
@@ -45,6 +45,8 @@ route.post("/", (req, res) => {
     if (req.body.description) {
       logger.info("create description: ", req.body.description);
       const description = req.body.description;
+      const execution = req.body.execution;
+      console.log("data de execução: ", execution)
       const amount = req.body.amount;
       const id_store = req.body.id_store;
       //validationbalance
@@ -56,7 +58,7 @@ route.post("/", (req, res) => {
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
       db(
-        `Insert into balance (description, amount, id_store, created_at, updated_at) values ('${description}',${amount}, ${id_store}, '${dataFormatada}', '${dataFormatada}')`,
+        `Insert into balance (description, amount, id_store, execution, created_at, updated_at) values ('${description}',${amount}, ${id_store}, '${execution}', '${dataFormatada}', '${dataFormatada}')`,
         res
       );
     } else {
@@ -70,9 +72,11 @@ route.post("/", (req, res) => {
 route.put("/:id_balance", (req, res) => {
   try {
     if (req.params.id_balance != null) {
-      logger.info("edit product_sale_id: ", req.params.id_balance);
-      const id_balance = req.params.id_balance;
+      console.log("put no banco de dados: ", req.body)
+      logger.info("edit product_sale_id: ", req.body.id_balance);
+      const id_balance = req.body.id_balance;
       const description = req.body.description;
+      const execution = req.body.execution;
       const amount = req.body.amount;
       const id_store = req.body.id_store;
       //validation
@@ -83,8 +87,10 @@ route.put("/:id_balance", (req, res) => {
         dataNFormatada.getHours() +
         ":" +
         dataNFormatada.getMinutes().toFixed(2);
+
+        console.log("data to inserto banco de dados: ",`update balance set description = '${description}', amount = ${amount}, id_store =  ${id_store}, execution = ${execution}, updated_at = '${dataFormatada} ' where id_balance = ${id_balance}`,)
       db(
-        `update balance set description = '${description}', amount = ${amount}, id_store =  ${id_store}, updated_at = '${dataFormatada} ' where id_balance = ${id_balance}`,
+        `update balance set description = '${description}', amount = ${amount}, id_store =  ${id_store}, execution = '${execution}', updated_at = '${dataFormatada} ' where id_balance = ${id_balance}`,
         res
       );
     } else {
