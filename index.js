@@ -74,7 +74,7 @@ function authenticateToken(req, res, next) {
 app.use('/login', loginRouter)
 app.use('/logout', authenticateToken, logoutRouter)
 app.use('/user',authenticateToken, userRouter)
-app.use('/product',authenticateToken, productRouter)
+app.use('/products',authenticateToken, productRouter)
 app.use('/sales',authenticateToken, salesRouter)
 app.use('/store',authenticateToken, storeRouter)
 app.use('/productsales',authenticateToken, productsalesRouter)
