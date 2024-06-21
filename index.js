@@ -25,6 +25,7 @@ import balanceRouter from './routes/balance.router.js'
 import supplierRouter from './routes/supplier.router.js'
 import clientRouter from './routes/client.router.js'
 import profileRouter from './routes/profile.router.js'
+import invoiceRouter from './routes/invoice.route.js'
 import paymentRouter from './routes/paymentIpag.route.js'
 
 const { combine, timestamp, label, printf } = winston.format
@@ -83,6 +84,7 @@ app.use('/supplier',authenticateToken, supplierRouter)
 app.use('/client',authenticateToken, clientRouter)
 app.use('/profile',authenticateToken, profileRouter)
 app.use('/payment',authenticateToken, paymentRouter)
+app.use('/invoices',authenticateToken, invoiceRouter)
 
 
 

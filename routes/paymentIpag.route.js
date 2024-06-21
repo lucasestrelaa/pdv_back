@@ -3,11 +3,11 @@ import db from "../db/db.js";
 
 const route = express.Router();
 
-let baseUrlApi = "https://sandbox.ipag.com.br/service/"
+let baseUrlApi = "https://sandbox.ipag.com.br/service/payment"
 
 let data = {
     "amount": 20,
-    "callback_url": "google.com",
+    "callback_url": "https://addictiontech.com.br/testeServidor/",
     "payment": {
         "type": "card",
         "method": "a vista",
@@ -26,12 +26,37 @@ let data = {
         }
     }
 }
+//data 2 peguei do site da ipag
+let data2 = {
+    "amount": 10.00,
+    "callback_url": "https://exemplosite.com.br/ipag/callback",
+    "order_id": "1000000",
+    "capture": false,
+    "payment": {
+        "type": "card",
+        "method": "visa",
+        "installments": 1,
+        "card": {
+            "holder": "FULANO DA SILVA",
+            "number": "4111 1111 1111 1111",
+            "expiry_month": "12",
+            "expiry_year": "2030",
+            "cvv": "123"
+        }
+    },
+    "customer": {
+        "name": "Fulano da Silva",
+        "cpf_cnpj": "79999338801"
+    }
+}
 
 route.post('/createpayment', (req, res, next) => {
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Basic E557-38DC8ED7-DB228A9D-B05AAA95-C7BE',
+            'x-api-version': '2'
         },
         body: JSON.stringify(update),
     };

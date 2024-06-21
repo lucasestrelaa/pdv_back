@@ -11,6 +11,14 @@ route.get("/", (req, res, next) => {
     next(error);
   }
 });
+route.get("/invoice", (req, res, next) => {
+  try {
+    logger.info("get all users");
+    db(`Select id_user, email, id_store, id_user_type, name from user where active = 1`, res);
+  } catch (error) {
+    next(error);
+  }
+});
 route.get("/:id_user", async function (req, res, next) {
   try {
     if (req.params.id_user != null) {

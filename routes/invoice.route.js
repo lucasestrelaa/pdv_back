@@ -3,6 +3,15 @@ import db from "./../db/db.js";
 
 const route = express.Router();
 
+route.get("/", async (req, res, next) => {
+    try {
+      logger.info("get all invoices");
+      db(`Select * from invoice`, res);
+    } catch (error) {
+      next(error);
+    }
+  });
+
 route.post("/", (req, res) => {
     try {
         //fatura da loja
@@ -16,3 +25,5 @@ route.post("/", (req, res) => {
         next(error);
     }
 })
+
+export default route;
